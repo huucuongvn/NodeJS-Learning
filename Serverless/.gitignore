@@ -1,0 +1,4 @@
+node_modules
+.serverless
+.shopify
+serverless.yml
