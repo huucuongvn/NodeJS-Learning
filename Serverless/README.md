@@ -69,8 +69,13 @@ Now you can invoke the function as before, but this time the function will be ex
 When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
 
 endpoints:
-  GET - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/test
-  POST - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users
-  GET - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id}
-  PUT - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id}
-  DELETE - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id}
+
+  GET - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/test .
+
+  POST - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users .
+  
+  GET - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id} .
+
+  PUT - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id} .
+
+  DELETE - https://16s5gnysjb.execute-api.ap-south-1.amazonaws.com/dev/users/{id} .
