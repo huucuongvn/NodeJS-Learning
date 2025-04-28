@@ -6,6 +6,7 @@ const { swaggerUi, swaggerSpec } = require('./swagger');
 const mongoose = require('mongoose');
 const authRouter = require('./routers/authRouter');
 const postRouter = require('./routers/postRouter');
+const eventRouter = require('./routers/eventRouter');
 
 const app = express();
 
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/posts', postRouter)
+app.use('/api/events', eventRouter)
 
 app.get('/', (req, res) => {
     res.json({
