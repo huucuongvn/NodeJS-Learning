@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const eventsModel = require('../models/eventsModel');
 const vouchersModel = require('../models/vouchersModel');
+const emailQueue = require('../middlewares/sendMail');
+const { isEditable } = require('../middlewares/eventEditing');
 
 exports.requestVoucher = async (req, res) => {
     const eventId = req.params.eventId;
@@ -25,6 +27,11 @@ exports.requestVoucher = async (req, res) => {
         await voucher.save({ session });
         event.maxQuantity -= 1;
         await event.save({ session });
+        const email = 'chieuanh955@gmail.com';
+        const subject = `Your Voucher Code: ${voucherCode}`;
+        const text = `Congratulations! Your voucher code is: ${voucherCode}.`;
+
+        await emailQueue.add({ email, subject, text });
         await session.commitTransaction();
         res.status(200).json({
             message: 'Voucher requested successfully',
@@ -67,3 +74,4 @@ exports.createEvent = async (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
+

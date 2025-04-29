@@ -2,7 +2,7 @@ const { signupSchema, signinSchema, acceptCodeSchema } = require("../middlewares
 const { doHash, compareHash, hmacProcess } = require("../untils/hashing");
 const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
-const transport = require("../middlewares/sendMail");
+const emailQueue = require("../middlewares/sendMail");
 
 /**
  * @swagger
@@ -184,13 +184,11 @@ exports.sendVerificationCode = async (req, res) => {
             return res.status(400).json({ message: 'User already verified.' });
         }
         const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
-        let info = await transport.sendMail({
-            from: process.env.EMAIL,
-            to: existingUser.email,
-            subject: 'Verification Code',
-            text: `Your verification code is ${verificationCode}`,
-        });
-        if (info.accepted[0] === existingUser.email) {
+        const subject = `Verification Code`;
+        const text = `Your verification code is ${verificationCode}`;
+        let info = emailQueue.add({ email, subject, text });
+        
+        if (existingUser.email) {
             const hashedCodeValue = hmacProcess(verificationCode, process.env.HMAC_VERIFICATION_KEY);
             existingUser.verificationCode = hashedCodeValue;
             existingUser.verificationCodeValidation = Date.now();

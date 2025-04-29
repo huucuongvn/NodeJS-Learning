@@ -27,6 +27,14 @@ const eventSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    editTableBy: {
+        type: String,
+        default: null
+    },
+    editingExpiration: {
+        type: Date,
+        default: null
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Event', eventSchema);
